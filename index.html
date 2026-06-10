@@ -971,19 +971,35 @@ footer {
       <div class="step-item">
         <div class="step-header" onclick="toggleStep(this)">
           <div class="step-num">6</div>
-          <div class="step-title-text">Export and Compile as PDF</div>
+          <div class="step-title-text">Export Each Page as JPEG</div>
           <div class="step-toggle">▶</div>
         </div>
         <div class="step-body">
           <ul>
-            <li>Export each finished A3 page: <strong>File → Export → Export As…</strong> → JPEG, maximum quality</li>
-            <li>To compile into a PDF: <strong>File → Automate → PDF Presentation…</strong>, add your JPEG files, save as PDF</li>
-            <li>Or open all JPEGs in Adobe Acrobat and combine</li>
-            <li>Final PDF must be <strong>under 100MB</strong> — compress images if needed</li>
+            <li>In Photoshop: <strong>File → Export → Export As…</strong> → JPEG, maximum quality</li>
+            <li>Name each file clearly: <em>firstname_lastname_page1.jpg</em>, <em>page2.jpg</em> etc.</li>
+            <li>Keep all your JPEGs in one folder — you'll upload them all at once in the next step</li>
           </ul>
-          <div class="tip-box">
-            <h4>💡 Naming your file</h4>
-            <ul><li>FirstName_LastName_StudentID_Group_PortfolioWeek.pdf</li></ul>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">7</div>
+          <div class="step-title-text">Build Your PDF — use the PDF Builder tool</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <p>Use the Portfolio PDF Builder to compile your JPEG pages into a single PDF ready for submission. It runs in your browser — nothing is uploaded anywhere.</p>
+          <ul>
+            <li>Drop all your JPEG pages in at once — they sort by filename automatically</li>
+            <li>Drag to reorder if needed</li>
+            <li>Enter your name and student ID — this names the file for you</li>
+            <li>Click Download PDF — then open it to check it looks right before submitting</li>
+          </ul>
+          <div class="notice"><strong>Important:</strong> your submission must be a <em>.pdf</em> file — not a folder of images, not a PSD. Open the downloaded file in Acrobat or Preview to confirm before uploading.</div>
+          <div style="text-align:center;margin:16px 0 6px;">
+            <a href="https://hsstokes.github.io/Portfolio-PDF-Builder/" target="_blank" class="padlet-btn" style="background:var(--ink);font-size:0.78rem;padding:13px 32px;">📄 Open Portfolio PDF Builder →</a>
           </div>
         </div>
       </div>
@@ -1082,19 +1098,31 @@ footer {
 
     <h2>Before You Upload — Final Check</h2>
 
+    <div style="background:var(--gold-light);border-left:5px solid var(--gold);border-radius:0 4px 4px 0;padding:16px 20px;margin-bottom:20px;">
+      <div style="font-family:'Space Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:8px;">Step 1 — Build your PDF</div>
+      <p style="font-size:0.84rem;margin-bottom:12px;">Use the Portfolio PDF Builder to turn your JPEG pages into a single submission-ready PDF. Drop all your pages in, check the order, enter your details, download.</p>
+      <div style="text-align:center;">
+        <a href="https://hsstokes.github.io/Portfolio-PDF-Builder/" target="_blank" class="padlet-btn" style="background:var(--ink);font-size:0.78rem;padding:13px 32px;">📄 Open Portfolio PDF Builder →</a>
+      </div>
+    </div>
+
+    <div class="notice" style="margin-bottom:20px;"><strong>Then check:</strong> open the downloaded PDF in Acrobat or Preview before uploading. It must open as a <em>.pdf</em> file — wrong file type can affect your grade.</div>
+
     <div class="checklist gold">
       <h3>Final Checklist ✓</h3>
-      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">All pages have been edited in Photoshop — tone and colour balanced</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">All pages edited in Photoshop — tone and colour balanced</span></div>
       <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">A3 layouts created with varied scales and organic placement</span></div>
-      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">All pages compiled into a single PDF under 100MB</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">PDF built using the Portfolio PDF Builder</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">PDF opened and checked — pages in correct order</span></div>
       <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">PDF named correctly: FirstName_LastName_StudentID_Group_PortfolioWeek.pdf</span></div>
       <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Progress Report PDF downloaded from the documentation tool</span></div>
     </div>
 
     <div class="submit-box">
-      <h3>Upload Two Things to Padlet</h3>
+      <h3>Step 2 — Upload to Padlet</h3>
+      <p style="font-size:0.82rem;color:var(--concrete);margin-bottom:16px;">Once your PDF is ready and checked, upload two things:</p>
       <div class="si-grid">
-        <div class="si"><h4>1. Portfolio PDF</h4><p>Your edited and laid-out pages as a single PDF under 100MB</p></div>
+        <div class="si"><h4>1. Portfolio PDF</h4><p>Built with the PDF Builder — single file, under 100MB</p></div>
         <div class="si"><h4>2. Progress Report</h4><p>PDF from the Progress Documentation Tool</p></div>
       </div>
       <a href="https://padlet.com/artslondon/portfolio-week-2y2gqyftykf051vg" target="_blank" class="padlet-btn">📤 Upload to Padlet →</a>
