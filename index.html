@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio Week · IELS Level 5</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --ink: #1a1a1a;
+  --paper: #f2ede8;
+  --teal: #0a7a7a;
+  --teal-light: #e0f0f0;
+  --pink: #ea37a3;
+  --pink-light: #fdf1f5;
+  --purple: #6c35c9;
+  --purple-light: #f3eeff;
+  --blue: #2563a8;
+  --blue-light: #eef4ff;
+  --gold: #c87900;
+  --gold-light: #fff8e6;
+  --warm-mid: #d4cfc8;
+  --grid: #ddd8d2;
+  --concrete: #8a8a8a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'IBM Plex Mono', monospace;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -10%; left: 48%;
+  width: 4px; height: 120vh;
+  background: rgba(255,255,255,0.6);
+  transform: rotate(12deg);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 36px 28px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+/* HEADER */
+.site-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 16px;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 18px;
+  margin-bottom: 10px;
+}
+.header-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 6px;
+}
+.site-header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+.site-header h1 em { color: var(--teal); font-style: italic; }
+.header-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  text-align: right;
+  color: var(--concrete);
+  line-height: 1.8;
+}
+
+/* TIMING STRIP */
+.timing-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.t-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 2px solid;
+}
+
+/* PROGRESS */
+.progress-wrap {
+  height: 6px;
+  background: var(--warm-mid);
+  margin-bottom: 18px;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pink), var(--teal));
+  transition: width 0.4s ease;
+}
+
+/* NAV GRID */
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+  margin-bottom: 28px;
+}
+@media (max-width: 680px) { .nav-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.nav-block {
+  border: 2px solid var(--warm-mid);
+  background: white;
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  border-radius: 3px;
+  min-height: 66px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+.nav-block:hover { border-color: var(--teal); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+.nav-block.active { background: var(--ink); color: white; border-color: var(--ink); }
+.nav-block .nav-icon { font-size: 1.2rem; }
+.nav-block .nav-label { font-weight: 700; font-size: 0.68rem; }
+.nav-block .nav-sub { color: var(--concrete); font-size: 0.58rem; }
+.nav-block.active .nav-sub { color: var(--warm-mid); }
+
+/* SECTIONS */
+.section { display: none; }
+.section.active { display: block; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* TYPOGRAPHY */
+h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 1.8rem 0 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h2::before {
+  content: '';
+  display: inline-block;
+  width: 5px; height: 24px;
+  background: var(--pink);
+  flex-shrink: 0;
+}
+
+h3 {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  margin: 1.2rem 0 0.6rem;
+}
+
+p { margin-bottom: 0.9em; font-size: 0.88rem; line-height: 1.8; }
+a { color: var(--teal); font-weight: 600; }
+a:hover { color: var(--pink); }
+ul { margin-left: 18px; margin-bottom: 0.8em; }
+li { font-size: 0.86rem; margin-bottom: 5px; line-height: 1.7; }
+
+.diagonal-rule {
+  height: 3px;
+  background: linear-gradient(90deg, var(--pink), var(--teal));
+  margin: 24px 0;
+  transform: skewX(-15deg);
+}
+
+/* BANNERS */
+.section-banner {
+  padding: 12px 18px;
+  margin-bottom: 22px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-left: 6px solid currentColor;
+  border-radius: 0 4px 4px 0;
+}
+.b-overview { background: var(--teal-light); color: var(--teal); }
+.b-t1 { background: var(--teal-light); color: var(--teal); }
+.b-t2 { background: var(--pink-light); color: var(--pink); }
+.b-t3 { background: var(--purple-light); color: var(--purple); }
+.b-t4 { background: var(--blue-light); color: var(--blue); }
+.b-submit { background: var(--gold-light); color: var(--gold); }
+
+/* INFO BOXES */
+.info-box {
+  border-left: 4px solid var(--teal);
+  background: var(--teal-light);
+  padding: 10px 14px;
+  border-radius: 0 4px 4px 0;
+  margin: 12px 0;
+  font-size: 0.86rem;
+}
+.info-box.pink { background: var(--pink-light); border-color: var(--pink); }
+.info-box.pink strong { color: var(--pink); }
+.info-box.purple { background: var(--purple-light); border-color: var(--purple); }
+.info-box.purple strong { color: var(--purple); }
+.info-box.blue { background: var(--blue-light); border-color: var(--blue); }
+.info-box.blue strong { color: var(--blue); }
+.info-box.green { background: #e8f5e9; border-color: #4caf50; }
+.info-box strong { color: var(--teal); }
+
+.notice {
+  background: rgba(234,55,163,0.08);
+  border-left: 4px solid var(--pink);
+  padding: 10px 14px;
+  margin: 12px 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.84rem;
+}
+.notice strong { color: var(--pink); }
+
+.tip-box {
+  background: #fffbea;
+  border: 2px solid #e6c200;
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.84rem;
+}
+.tip-box h4 { color: #a08800; font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 6px; }
+.tip-box ul { margin-left: 14px; }
+.tip-box li { margin-bottom: 3px; }
+
+/* ACCORDION STEPS */
+.steps-list { margin: 1rem 0; }
+.step-item {
+  background: white;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  border: 2px solid var(--warm-mid);
+  overflow: hidden;
+}
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.step-header:hover { background: var(--teal-light); }
+.step-num {
+  width: 28px; height: 28px;
+  background: var(--teal);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+}
+.step-title-text {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  color: var(--teal);
+  font-size: 0.84rem;
+  flex: 1;
+}
+.step-toggle { font-size: 0.75rem; color: var(--concrete); transition: transform 0.2s; }
+.step-body {
+  padding: 0 14px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.2s;
+}
+.step-body.open { padding: 0 14px 14px; max-height: 900px; }
+.step-body ul { margin-left: 14px; }
+.step-body li { font-size: 0.84rem; margin-bottom: 4px; line-height: 1.6; }
+.step-body p { font-size: 0.84rem; margin-bottom: 0.6em; }
+
+/* VIDEO */
+.vid-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  margin: 12px 0;
+}
+.vid-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+/* KEY */
+.key {
+  display: inline-block;
+  background: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-family: monospace;
+  font-size: 0.8em;
+  margin: 0 2px;
+}
+
+/* EXAMPLE CARDS */
+.eg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin: 1rem 0;
+}
+.eg-card {
+  background: white;
+  border: 2px solid var(--warm-mid);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.22s;
+  cursor: zoom-in;
+}
+.eg-card:hover { border-color: var(--pink); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+.eg-img {
+  width: 100%; height: 160px;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.eg-img img { width: 100%; height: 100%; object-fit: cover; }
+.ph-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%; height: 100%;
+}
+.ph-box span:first-child { font-size: 1.8rem; opacity: 0.2; }
+.ph-box span:last-child { font-size: 0.62rem; color: var(--concrete); }
+.zoom-hint {
+  position: absolute;
+  bottom: 5px; right: 5px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 0.55rem;
+  padding: 2px 5px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.eg-cap { padding: 8px 10px; font-size: 0.72rem; color: var(--concrete); }
+.eg-cap em { display: block; font-size: 0.64rem; color: var(--warm-mid); margin-top: 2px; }
+
+/* TWO-COL GRID */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0.8rem 0;
+}
+@media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+
+/* RE GRID */
+.re-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0.8rem 0;
+}
+@media (max-width: 520px) { .re-grid { grid-template-columns: 1fr; } }
+.re-item {
+  background: white;
+  border: 2px solid var(--warm-mid);
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.re-item .icon { font-size: 1.2rem; flex-shrink: 0; }
+.re-item h4 { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--teal); margin-bottom: 2px; font-weight: 700; }
+.re-item p { font-size: 0.72rem; color: var(--concrete); margin: 0; }
+
+/* CHECKLIST */
+.checklist {
+  background: white;
+  border: 2px solid var(--teal);
+  border-radius: 4px;
+  padding: 18px;
+  margin: 20px 0;
+}
+.checklist.pink { border-color: var(--pink); }
+.checklist.purple { border-color: var(--purple); }
+.checklist.gold { border-color: var(--gold); }
+.checklist h3 {
+  font-size: 0.78rem;
+  text-align: center;
+  border-bottom: 2px dashed var(--teal);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  color: var(--teal);
+}
+.checklist.pink h3 { color: var(--pink); border-color: var(--pink); }
+.checklist.purple h3 { color: var(--purple); border-color: var(--purple); }
+.checklist.gold h3 { color: var(--gold); border-color: var(--gold); }
+.ci { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+.chk {
+  width: 20px; height: 20px;
+  border: 2px solid var(--teal);
+  border-radius: 3px;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  margin-top: 2px;
+  transition: background 0.2s;
+}
+.checklist.pink .chk { border-color: var(--pink); }
+.checklist.purple .chk { border-color: var(--purple); }
+.checklist.gold .chk { border-color: var(--gold); }
+.chk.checked::after {
+  content: '✓';
+  position: absolute;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 700;
+  top: -1px; left: 2px;
+}
+.checklist.pink .chk.checked::after { color: var(--pink); }
+.checklist.purple .chk.checked::after { color: var(--purple); }
+.checklist.gold .chk.checked::after { color: var(--gold); }
+.cl {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--teal);
+  padding-top: 1px;
+}
+.checklist.pink .cl { color: var(--pink); }
+.checklist.purple .cl { color: var(--purple); }
+.checklist.gold .cl { color: var(--gold); }
+
+/* SUBMIT BOX */
+.submit-box {
+  background: white;
+  border: 3px dashed var(--teal);
+  border-radius: 4px;
+  padding: 24px;
+  text-align: center;
+  margin: 20px 0;
+}
+.submit-box h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 14px;
+}
+.si-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.si {
+  background: var(--teal-light);
+  border: 1px solid var(--teal);
+  border-radius: 3px;
+  padding: 10px;
+  text-align: left;
+}
+.si h4 { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--teal); margin-bottom: 2px; }
+.si p { font-size: 0.68rem; color: var(--concrete); margin: 0; }
+.si:nth-child(2) { background: var(--pink-light); border-color: var(--pink); }
+.si:nth-child(2) h4 { color: var(--pink); }
+.si:nth-child(3) { background: var(--purple-light); border-color: var(--purple); }
+.si:nth-child(3) h4 { color: var(--purple); }
+.si:nth-child(4) { background: var(--blue-light); border-color: var(--blue); }
+.si:nth-child(4) h4 { color: var(--blue); }
+.padlet-btn {
+  display: inline-block;
+  background: var(--teal);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+.padlet-btn:hover { background: var(--ink); color: white; transform: translateY(-2px); }
+.padlet-btn.pink { background: var(--pink); }
+.padlet-btn.pink:hover { background: var(--ink); }
+
+/* NAV BUTTONS */
+.nav-btns {
+  display: flex;
+  justify-content: space-between;
+  margin: 28px 0 10px;
+  gap: 10px;
+}
+.nav-btn {
+  padding: 10px 20px;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.nav-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.btn-prev { background: white; color: var(--ink); }
+.btn-next { background: var(--ink); color: white; }
+.btn-next.pink { background: var(--pink); border-color: var(--pink); }
+.btn-next.purple { background: var(--purple); border-color: var(--purple); }
+.btn-next.gold { background: var(--gold); border-color: var(--gold); }
+.nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+
+/* LIGHTBOX */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  cursor: zoom-out;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 88vw; max-height: 78vh; border: 3px solid white; border-radius: 3px; object-fit: contain; }
+.lb-cap { color: #ccc; font-size: 0.72rem; margin-top: 10px; text-align: center; }
+.lb-cap em { display: block; color: #777; font-size: 0.64rem; margin-top: 2px; }
+.lb-close {
+  position: absolute;
+  top: 14px; right: 20px;
+  color: white; font-size: 2.2rem;
+  cursor: pointer;
+  background: none; border: none;
+  opacity: 0.7; font-family: 'Space Mono', monospace;
+}
+.lb-close:hover { opacity: 1; color: var(--pink); }
+
+footer {
+  text-align: center;
+  padding: 20px 0 10px;
+  border-top: 1px dashed var(--warm-mid);
+  margin-top: 40px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--concrete);
+}
+
+@media (max-width: 600px) {
+  .container { padding: 20px 14px 40px; }
+  .site-header { grid-template-columns: 1fr; }
+  .header-meta { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">✕</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+
+<div class="container">
+
+  <header class="site-header">
+    <div>
+      <div class="header-eyebrow">Portfolio Week · IELS Level 5</div>
+      <h1>Getting Your<br><em>Portfolio Ready</em></h1>
+    </div>
+    <div class="header-meta">
+      2 tasks<br>↓<br>then submit
+    </div>
+  </header>
+
+  <div class="timing-strip">
+    <span class="t-badge" style="background:var(--teal-light);color:var(--teal);border-color:var(--teal);">🖼️ Task 1 · Edit Your Photos</span>
+    <span class="t-badge" style="background:var(--pink-light);color:var(--pink);border-color:var(--pink);">📐 Task 2 · Layout Your Pages</span>
+    <span class="t-badge" style="background:var(--gold-light);color:var(--gold);border-color:var(--gold);">📤 Submit to Padlet</span>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-fill" id="progressBar" style="width:20%"></div>
+  </div>
+
+  <div class="nav-grid">
+    <div class="nav-block active" data-sec="overview"><span class="nav-icon">🏠</span><span class="nav-label">Overview</span><span class="nav-sub">Start here</span></div>
+    <div class="nav-block" data-sec="task1"><span class="nav-icon">🖼️</span><span class="nav-label">Task 1</span><span class="nav-sub">Edit photos</span></div>
+    <div class="nav-block" data-sec="task2"><span class="nav-icon">📐</span><span class="nav-label">Task 2</span><span class="nav-sub">Layout</span></div>
+    <div class="nav-block" data-sec="task3"><span class="nav-icon">📝</span><span class="nav-label">Document</span><span class="nav-sub">Reflect</span></div>
+    <div class="nav-block" data-sec="submit"><span class="nav-icon">📤</span><span class="nav-label">Submit</span><span class="nav-sub">Padlet</span></div>
+  </div>
+
+  <!-- ═══ OVERVIEW ═══ -->
+  <div id="overview" class="section active">
+
+    <div class="section-banner b-overview">🏠 What You Will Do This Week</div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:1.2rem;">
+      <div style="background:var(--teal-light);border:2px solid var(--teal);border-radius:4px;padding:14px;text-align:center;">
+        <div style="font-size:1.5rem;">🖼️</div>
+        <strong style="font-family:'Space Mono',monospace;color:var(--teal);font-size:0.72rem;display:block;margin:4px 0;">Task 1</strong>
+        <p style="margin:0;font-size:0.72rem;">Edit your photos and scans in Photoshop so they look clean and portfolio-ready</p>
+      </div>
+      <div style="background:var(--pink-light);border:2px solid var(--pink);border-radius:4px;padding:14px;text-align:center;">
+        <div style="font-size:1.5rem;">📐</div>
+        <strong style="font-family:'Space Mono',monospace;color:var(--pink);font-size:0.72rem;display:block;margin:4px 0;">Task 2</strong>
+        <p style="margin:0;font-size:0.72rem;">Create dynamic A3 layouts using your edited images and organic layout techniques</p>
+      </div>
+      <div style="background:var(--gold-light);border:2px solid var(--gold);border-radius:4px;padding:14px;text-align:center;">
+        <div style="font-size:1.5rem;">📤</div>
+        <strong style="font-family:'Space Mono',monospace;color:var(--gold);font-size:0.72rem;display:block;margin:4px 0;">Submit</strong>
+        <p style="margin:0;font-size:0.72rem;">Export as PDF and upload your work to Padlet</p>
+      </div>
+    </div>
+
+    <div class="diagonal-rule"></div>
+
+    <div class="info-box">
+      <strong>Two things to submit:</strong> a single PDF of your digitally edited portfolio pages, plus your Progress Report from the documentation tool.
+    </div>
+
+    <h2>What Good Work Looks Like</h2>
+    <p>Look at these student examples before you start — notice the clean editing, clear layout, and how text and images work together.</p>
+
+    <div class="eg-grid">
+      <div class="eg-card" onclick="openLB('images/ov-example-1.jpg','Strong A3 layout with varied image scales','Student example — used with permission')">
+        <div class="eg-img"><img src="images/ov-example-1.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ph-box"><span>🖼️</span><span>ov-example-1.jpg</span></div><span class="zoom-hint">🔍 enlarge</span></div>
+        <div class="eg-cap">Strong A3 layout with varied scales</div>
+      </div>
+      <div class="eg-card" onclick="openLB('images/ov-example-2.jpg','Well-edited photos with balanced tone','Student example — used with permission')">
+        <div class="eg-img"><img src="images/ov-example-2.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ph-box"><span>🖼️</span><span>ov-example-2.jpg</span></div><span class="zoom-hint">🔍 enlarge</span></div>
+        <div class="eg-cap">Well-edited photos, balanced tone</div>
+      </div>
+      <div class="eg-card" onclick="openLB('images/ov-example-3.jpg','Organic layout with organic background texture','Student example — used with permission')">
+        <div class="eg-img"><img src="images/ov-example-3.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ph-box"><span>🖼️</span><span>ov-example-3.jpg</span></div><span class="zoom-hint">🔍 enlarge</span></div>
+        <div class="eg-cap">Organic layout, texture background</div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <h4>📋 Before You Start</h4>
+      <ul>
+        <li>Collect all your scanned pages and photos — have them ready to open</li>
+        <li>Open Photoshop and create a new A3 document (420×297mm, 300 dpi, CMYK)</li>
+        <li>Have your checklist from the Portfolio Requirements page open</li>
+      </ul>
+    </div>
+
+    <div class="nav-btns">
+      <button class="nav-btn btn-prev" disabled>← Back</button>
+      <button class="nav-btn btn-next" onclick="goTo('task1')">Task 1: Edit Your Photos →</button>
+    </div>
+  </div>
+
+  <!-- ═══ TASK 1 ═══ -->
+  <div id="task1" class="section">
+
+    <div class="section-banner b-t1">🖼️ Task 1 — Edit Your Photos &amp; Scans in Photoshop</div>
+
+    <div class="info-box">
+      <strong>Goal:</strong> Every page you photograph or scan should look clean, well-lit, and true to the original work — white paper should look white, colours should be accurate.
+    </div>
+
+    <h2>Capture Your Work First</h2>
+
+    <div class="two-col">
+      <div style="background:var(--teal-light);border:2px solid var(--teal);border-radius:4px;padding:14px;">
+        <h3 style="margin-top:0;">🖨️ Scan at College</h3>
+        <ul>
+          <li>Place page flat on the scanner glass, close the lid gently</li>
+          <li>Swipe your student card → choose <strong>Scan to Email</strong></li>
+          <li>Set resolution to <strong>300 dpi</strong></li>
+          <li>Download from your inbox to a drive or desktop folder</li>
+        </ul>
+      </div>
+      <div style="background:var(--pink-light);border:2px solid var(--pink);border-radius:4px;padding:14px;">
+        <h3 style="margin-top:0;color:var(--pink);">📸 Photograph Your Pages</h3>
+        <ul>
+          <li>Use soft daylight — avoid direct sun or yellow indoor bulbs</li>
+          <li>Lay the sketchbook flat, stand or mount your phone above it</li>
+          <li>Take several shots and pick the most evenly lit one</li>
+          <li>Photos capture surface texture that scanners miss</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="notice"><strong>Best results:</strong> scan for clarity, photograph for texture — combine both if you can.</div>
+
+    <div class="diagonal-rule"></div>
+
+    <h2>Edit in Photoshop — click each step to open</h2>
+
+    <div class="steps-list">
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">1</div>
+          <div class="step-title-text">Open and Duplicate</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Open your image in Photoshop</li>
+            <li>Drag the Background layer onto the <strong>New Layer</strong> icon in the Layers panel</li>
+            <li>This keeps a safe original beneath your edits — always do this first</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">2</div>
+          <div class="step-title-text">Balance Tone — Levels &amp; Curves</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li><strong>Image → Adjustments → Levels</strong> <span class="key">Ctrl/Cmd+L</span></li>
+            <li>Drag the black and white input sliders until the histogram just touches both ends — this adds contrast and makes white paper look white</li>
+            <li>Then <strong>Image → Adjustments → Curves</strong> <span class="key">Ctrl/Cmd+M</span></li>
+            <li>Make a gentle S-curve: lift the lights slightly, anchor the darks</li>
+          </ul>
+          <div class="info-box" style="margin-top:8px;"><strong>Why?</strong> Levels recover brightness; Curves add depth. Apply these before any colour correction.</div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">3</div>
+          <div class="step-title-text">Correct Colour — Camera Raw Filter</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li><strong>Filter → Camera Raw Filter…</strong></li>
+            <li>Set White Balance to <strong>Custom</strong></li>
+            <li>Adjust <strong>Temperature</strong> (left = cooler / right = warmer) and <strong>Tint</strong> until paper looks clean white</li>
+            <li>Avoid over-brightening — aim for natural, not glowing</li>
+          </ul>
+          <div class="vid-wrap">
+            <iframe src="https://ual.cloud.panopto.eu/Panopto/Pages/embed.aspx?id=a5b2563e-f3a3-42d0-a3e2-b3810108960a" title="Adjusting Light and Colour in Camera Raw Filter" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">4</div>
+          <div class="step-title-text">Place into A3 Layout</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Select with <strong>Marquee Tool (M)</strong> → <span class="key">Ctrl/Cmd+C</span> then <span class="key">Ctrl/Cmd+V</span></li>
+            <li>Or use <strong>File → Place Embedded…</strong> to insert the whole page as a new layer</li>
+            <li>Resize with <span class="key">Ctrl/Cmd+T</span> (Free Transform) — hold Shift to constrain proportions</li>
+          </ul>
+          <div class="vid-wrap">
+            <iframe src="https://ual.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=3b8441d8-50ff-4e81-9bf0-b381010ffbd9" title="A3 Layout and Export" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">5</div>
+          <div class="step-title-text">Save Your Work</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Save as <strong>.PSD</strong> — keeps all layers editable</li>
+            <li>Export as <strong>.JPG</strong> — for layout and upload: File → Export → Save for Web (Legacy) → JPEG, 80–90% quality</li>
+            <li>Rename clearly: <em>firstname_lastname_portfolioweek_page1.jpg</em></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="checklist">
+      <h3>Task 1 Checklist ✓</h3>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">All pages scanned or photographed clearly</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Original layer duplicated before editing</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Levels and Curves applied — good contrast</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Camera Raw Filter — white paper looks white</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Images placed into A3 layout</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Saved as PSD · exported as JPEG</span></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="nav-btn btn-prev" onclick="goTo('overview')">← Overview</button>
+      <button class="nav-btn btn-next pink" onclick="goTo('task2')">Task 2: Layout →</button>
+    </div>
+  </div>
+
+  <!-- ═══ TASK 2 ═══ -->
+  <div id="task2" class="section">
+
+    <div class="section-banner b-t2">📐 Task 2 — Create Your Portfolio Layout</div>
+
+    <div class="info-box pink">
+      <strong>Goal:</strong> Arrange your edited images and any text into dynamic, story-driven A3 pages. Let the content guide the layout — not a rigid grid.
+    </div>
+
+    <h2>Artist Inspiration — Dynamic Collage Layouts</h2>
+    <p>These artists use scale, placement, and mixed media to tell visual stories. Notice how they vary image sizes and create visual flow.</p>
+
+    <div class="eg-grid">
+      <div class="eg-card" onclick="openLB('images/collage-example-1.jpg','Mixed media collage — Rodrigo de Filippis','Rodrigo de Filippis')">
+        <div class="eg-img"><img src="images/collage-example-1.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ph-box"><span>🖼️</span><span>collage-example-1.jpg</span></div><span class="zoom-hint">🔍 enlarge</span></div>
+        <div class="eg-cap">Rodrigo de Filippis<em>Mixed media collage</em></div>
+      </div>
+      <div class="eg-card" onclick="openLB('images/collage-example-2.jpg','Fabric and paper elements — Rodrigo de Filippis','Rodrigo de Filippis')">
+        <div class="eg-img"><img src="images/collage-example-2.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ph-box"><span>🖼️</span><span>collage-example-2.jpg</span></div><span class="zoom-hint">🔍 enlarge</span></div>
+        <div class="eg-cap">Rodrigo de Filippis<em>Fabric and paper elements</em></div>
+      </div>
+      <div class="eg-card" onclick="openLB('images/collage-example-3.jpg','City landscape — Jesús Perea','Jesús Perea')">
+        <div class="eg-img"><img src="images/collage-example-3.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ph-box"><span>🖼️</span><span>collage-example-3.jpg</span></div><span class="zoom-hint">🔍 enlarge</span></div>
+        <div class="eg-cap">Jesús Perea<em>Mixed media city landscape</em></div>
+      </div>
+      <div class="eg-card" onclick="openLB('images/collage-example-4.jpg','Limited edition visual narrative — Jesús Perea','Jesús Perea')">
+        <div class="eg-img"><img src="images/collage-example-4.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ph-box"><span>🖼️</span><span>collage-example-4.jpg</span></div><span class="zoom-hint">🔍 enlarge</span></div>
+        <div class="eg-cap">Jesús Perea<em>Limited edition visual narrative</em></div>
+      </div>
+    </div>
+
+    <div class="diagonal-rule"></div>
+
+    <h2>The Organic Layout Process — click each step</h2>
+
+    <div class="steps-list">
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">1</div>
+          <div class="step-title-text">Create a Background Texture with Content-Aware Fill</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Use the <strong>Rectangular Marquee Tool (M)</strong> to select a visually interesting area of your image — a texture, pattern, or detail</li>
+            <li><span class="key">Ctrl/Cmd+C</span> then <span class="key">Ctrl/Cmd+V</span> — creates a new layer with just that area</li>
+            <li>Hide the original layer by clicking the 👁 eye icon</li>
+            <li>Use the <strong>Magic Wand Tool (W)</strong> to select the white background area</li>
+            <li>Go to <strong>Edit → Content-Aware Fill</strong> — Photoshop fills the space using patterns from your image, creating an organic, textured background</li>
+          </ul>
+          <div class="vid-wrap">
+            <iframe src="https://ual.cloud.panopto.eu/Panopto/Pages/embed.aspx?id=06435312-e6f7-4993-b9db-b38500c9b8f0" title="Content-Aware Fill Layout Technique" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">2</div>
+          <div class="step-title-text">Lighten the Background with the Dodge Tool</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Merge your layers: <span class="key">Ctrl/Cmd+E</span></li>
+            <li>Select the <strong>Dodge Tool (O)</strong></li>
+            <li>Set Range to <strong>Midtones</strong> · large soft brush · 20–30% Exposure</li>
+            <li>Sweep across the whole page in broad strokes to create a light, airy background that won't compete with your content</li>
+          </ul>
+          <div class="info-box" style="margin-top:8px;">Brush shortcuts: <span class="key">[</span> to decrease size · <span class="key">]</span> to increase size</div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">3</div>
+          <div class="step-title-text">Place Images at Varied Scales</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Place your <strong>most important image first</strong> — make it the largest element</li>
+            <li>Add supporting images at progressively smaller sizes to guide the viewer's eye</li>
+            <li>Use <span class="key">Ctrl/Cmd+T</span> to resize each layer</li>
+            <li>Let the background texture suggest where things want to sit — follow it rather than forcing a grid</li>
+          </ul>
+          <div class="notice"><strong>Key principle:</strong> larger = more important. Vary scales deliberately to create visual hierarchy.</div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">4</div>
+          <div class="step-title-text">Fine-Tune Alignment</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Arrow keys for precise 1px nudging</li>
+            <li><span class="key">Shift + Arrow</span> to move 10px at a time</li>
+            <li>Align edges, centres, or use the Rule of Thirds as a loose guide — but trust your eye over the grid</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">5</div>
+          <div class="step-title-text">Add Subtle Depth with Drop Shadows</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Click a layer → <strong>Layer Style → Drop Shadow</strong> (or the <strong>fx</strong> icon in the Layers panel)</li>
+            <li>Keep shadows subtle: Opacity 30–50% · Distance 5–10px · Size 5–10px · Angle 120°</li>
+            <li>Apply to all content layers for consistent depth</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">6</div>
+          <div class="step-title-text">Export and Compile as PDF</div>
+          <div class="step-toggle">▶</div>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Export each finished A3 page: <strong>File → Export → Export As…</strong> → JPEG, maximum quality</li>
+            <li>To compile into a PDF: <strong>File → Automate → PDF Presentation…</strong>, add your JPEG files, save as PDF</li>
+            <li>Or open all JPEGs in Adobe Acrobat and combine</li>
+            <li>Final PDF must be <strong>under 100MB</strong> — compress images if needed</li>
+          </ul>
+          <div class="tip-box">
+            <h4>💡 Naming your file</h4>
+            <ul><li>FirstName_LastName_StudentID_Group_PortfolioWeek.pdf</li></ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="checklist pink">
+      <h3>Task 2 Checklist ✓</h3>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Background texture created with Content-Aware Fill</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Background lightened with Dodge tool</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Images placed at varied scales — largest first</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Subtle drop shadows applied for depth</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Each page exported as JPEG</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">All pages compiled into a single PDF under 100MB</span></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="nav-btn btn-prev" onclick="goTo('task1')">← Task 1</button>
+      <button class="nav-btn btn-next purple" onclick="goTo('task3')">Document Your Work →</button>
+    </div>
+  </div>
+
+  <!-- ═══ DOCUMENT ═══ -->
+  <div id="task3" class="section">
+
+    <div class="section-banner b-t3">📝 Document &amp; Reflect</div>
+
+    <div class="info-box purple">
+      <strong>Why document?</strong> Showing how you learned — not just what you made — is a core assessed skill at Level 5. Complete this before you submit.
+    </div>
+
+    <div style="background:var(--blue-light);border:3px solid var(--blue);border-radius:4px;padding:22px;text-align:center;margin:16px 0;">
+      <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:1.2rem;color:var(--blue);margin-bottom:8px;">Open the Progress Documentation Tool</h3>
+      <p style="font-size:0.84rem;color:var(--concrete);margin-bottom:16px;">Complete all sections, download your PDF, then upload it to Padlet alongside your portfolio.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:18px;">
+        <div style="background:white;border-radius:3px;padding:10px;border-top:3px solid var(--blue);">
+          <div style="width:22px;height:22px;background:var(--blue);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:0.75rem;margin:0 auto 5px;">1</div>
+          <p style="font-size:0.7rem;color:var(--concrete);margin:0;">Enter your name and take screenshots</p>
+        </div>
+        <div style="background:white;border-radius:3px;padding:10px;border-top:3px solid var(--blue);">
+          <div style="width:22px;height:22px;background:var(--blue);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:0.75rem;margin:0 auto 5px;">2</div>
+          <p style="font-size:0.7rem;color:var(--concrete);margin:0;">Upload 2–3 progress screenshots</p>
+        </div>
+        <div style="background:white;border-radius:3px;padding:10px;border-top:3px solid var(--blue);">
+          <div style="width:22px;height:22px;background:var(--blue);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:0.75rem;margin:0 auto 5px;">3</div>
+          <p style="font-size:0.7rem;color:var(--concrete);margin:0;">Rate your confidence and answer the reflection questions</p>
+        </div>
+        <div style="background:white;border-radius:3px;padding:10px;border-top:3px solid var(--blue);">
+          <div style="width:22px;height:22px;background:var(--blue);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:0.75rem;margin:0 auto 5px;">4</div>
+          <p style="font-size:0.7rem;color:var(--concrete);margin:0;">Download your PDF report</p>
+        </div>
+      </div>
+      <a href="https://hsstokes.github.io/Progress_Documentation/" target="_blank" class="padlet-btn" style="background:var(--blue);">📝 Open Progress Documentation Tool →</a>
+    </div>
+
+    <h2>Reflection Prompts</h2>
+
+    <div class="two-col">
+      <div style="background:white;border:2px solid var(--purple);border-radius:4px;padding:12px;border-top:4px solid var(--purple);">
+        <h3 style="color:var(--purple);margin-top:0;">What I did</h3>
+        <p style="font-size:0.78rem;color:var(--concrete);margin:0;">Which tools and techniques did you use? Be specific — name the actual Photoshop tools.</p>
+      </div>
+      <div style="background:white;border:2px solid var(--purple);border-radius:4px;padding:12px;border-top:4px solid var(--purple);">
+        <h3 style="color:var(--purple);margin-top:0;">What was difficult</h3>
+        <p style="font-size:0.78rem;color:var(--concrete);margin:0;">Where did you get stuck? How did you work through it?</p>
+      </div>
+      <div style="background:white;border:2px solid var(--purple);border-radius:4px;padding:12px;border-top:4px solid var(--purple);">
+        <h3 style="color:var(--purple);margin-top:0;">What worked well</h3>
+        <p style="font-size:0.78rem;color:var(--concrete);margin:0;">Which part of your layout are you most satisfied with?</p>
+      </div>
+      <div style="background:white;border:2px solid var(--purple);border-radius:4px;padding:12px;border-top:4px solid var(--purple);">
+        <h3 style="color:var(--purple);margin-top:0;">What I would do differently</h3>
+        <p style="font-size:0.78rem;color:var(--concrete);margin:0;">What will you change or explore further next time?</p>
+      </div>
+    </div>
+
+    <div class="checklist purple">
+      <h3>Documentation Checklist ✓</h3>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Opened the Progress Documentation Tool</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Uploaded 2–3 screenshots of your work in progress</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Rated your confidence level</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Answered the reflection questions</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Downloaded your Progress Report PDF</span></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="nav-btn btn-prev" onclick="goTo('task2')">← Task 2</button>
+      <button class="nav-btn btn-next gold" onclick="goTo('submit')">Submit →</button>
+    </div>
+  </div>
+
+  <!-- ═══ SUBMIT ═══ -->
+  <div id="submit" class="section">
+
+    <div class="section-banner b-submit">📤 Submit Your Work</div>
+
+    <h2>Before You Upload — Final Check</h2>
+
+    <div class="checklist gold">
+      <h3>Final Checklist ✓</h3>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">All pages have been edited in Photoshop — tone and colour balanced</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">A3 layouts created with varied scales and organic placement</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">All pages compiled into a single PDF under 100MB</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">PDF named correctly: FirstName_LastName_StudentID_Group_PortfolioWeek.pdf</span></div>
+      <div class="ci"><div class="chk" onclick="tog(this)"></div><span class="cl">Progress Report PDF downloaded from the documentation tool</span></div>
+    </div>
+
+    <div class="submit-box">
+      <h3>Upload Two Things to Padlet</h3>
+      <div class="si-grid">
+        <div class="si"><h4>1. Portfolio PDF</h4><p>Your edited and laid-out pages as a single PDF under 100MB</p></div>
+        <div class="si"><h4>2. Progress Report</h4><p>PDF from the Progress Documentation Tool</p></div>
+      </div>
+      <a href="https://padlet.com/artslondon/portfolio-week-2y2gqyftykf051vg" target="_blank" class="padlet-btn">📤 Upload to Padlet →</a>
+    </div>
+
+    <div class="info-box green">
+      <strong>This week you practised:</strong>
+      <ul style="margin-top:6px;margin-left:16px;">
+        <li>Scanning and photographing physical work professionally</li>
+        <li>Editing tone and colour in Photoshop — Levels, Curves, Camera Raw</li>
+        <li>Creating organic, story-driven A3 layouts with Content-Aware Fill</li>
+        <li>Using visual hierarchy through varied image scales</li>
+        <li>Compiling a multi-page PDF ready for UCAS submission</li>
+      </ul>
+    </div>
+
+    <div class="nav-btns">
+      <button class="nav-btn btn-prev" onclick="goTo('task3')">← Document</button>
+      <button class="nav-btn btn-next" onclick="goTo('overview')">↩ Back to Start</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2025 Portfolio Week · IELS Level 5 · Student examples used with permission for educational purposes.
+</footer>
+
+<script>
+const sections = ['overview','task1','task2','task3','submit'];
+let current = 'overview';
+
+function goTo(id) {
+  document.getElementById(current).classList.remove('active');
+  document.querySelector(`[data-sec="${current}"]`).classList.remove('active');
+  current = id;
+  document.getElementById(current).classList.add('active');
+  document.querySelector(`[data-sec="${id}"]`).classList.add('active');
+  const pct = ((sections.indexOf(id) + 1) / sections.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+document.querySelectorAll('.nav-block').forEach(b => {
+  b.addEventListener('click', () => goTo(b.dataset.sec));
+});
+
+function tog(el) { el.classList.toggle('checked'); }
+
+function toggleStep(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.step-toggle');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arrow.textContent = isOpen ? '▶' : '▼';
+}
+
+function openLB(src, cap, credit) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-cap').innerHTML = cap + (credit ? '<em>' + credit + '</em>' : '');
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+</script>
+</body>
+</html>
